@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 public class LoggingX509ExtendedTrustManagerTest {
 
   @Test
-  public void shouldAnswerWithTrue() throws Exception {
+  public void testLog() throws Exception {
     final TraceLogger tracer =
         new AbstractTraceLogger() {
           @Override

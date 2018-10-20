@@ -60,6 +60,65 @@ public class LoggingX509ExtendedTrustManager extends ProxyX509ExtendedTrustManag
 
 This is a lightweight alternative to using the [debugjsse provider](https://github.com/tersesystems/debugjsse), as you can restrict logging to only a single trust manager.
 
+```java
+public class LoggingX509ExtendedTrustManagerTest {
+
+  @Test
+  public void testLog() throws Exception {
+    final TraceLogger tracer =
+        new AbstractTraceLogger() {
+          @Override
+          protected void entry(final String methodName, final Object... parameters) {
+            System.out.println("entry: " + methodName);
+          }
+
+          @Override
+          protected <R> R exit(final R result, final String methodName,
+              final Object... parameters) {
+            System.out.println("exit: " + methodName);
+            return result;
+          }
+
+          @Override
+          protected void exit(final String methodName, final Object... parameters) {
+            System.out.println("exit: " + methodName);
+          }
+
+          @Override
+          protected void exception(final Throwable e, final String methodName,
+              final Object... parameters) {
+            System.out.println("exception: " + methodName);
+          }
+        };
+
+    try {
+      final SSLContext sslContext = SSLContext.getInstance("TLS");
+      final TrustManagerFactory tmf =
+          TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+      tmf.init((KeyStore) null);
+      final TrustManager[] tms =
+          Arrays.stream(tmf.getTrustManagers())
+              .map(LoggingX509ExtendedTrustManager.transform(tracer))
+              .toArray(TrustManager[]::new);
+
+      sslContext.init(null, tms, null);
+      final HttpsURLConnection urlConnection =
+          (HttpsURLConnection) new URL("https://www.google.com").openConnection();
+      urlConnection.setSSLSocketFactory(sslContext.getSocketFactory());
+
+      // Call Google
+      try (final BufferedReader in =
+          new BufferedReader(new InputStreamReader(urlConnection.getInputStream()))) {
+        final String result = in.lines().collect(Collectors.joining());
+        System.out.println(result);
+      }
+    } catch (final Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
+```
+
 ### Revocation
 
 You can even use a caretaker to set up revocation.  This can be used to break off communication immediately when a security guarantee is violated, or to enforce a time limit on access.
