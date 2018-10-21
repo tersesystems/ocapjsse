@@ -45,7 +45,7 @@
       <name>tersesystems-maven</name>
       <!--
         Repo: maven (on bintray, create a repository of maven type)
-        Package: securitybuilders (on bintray, create a package under the repo section)
+        Package: ocapjsse (on bintray, create a package under the repo section)
       -->
       <url>https://api.bintray.com/maven/tersesystems/maven/ocapjsse/;publish=1</url>
     </repository>
