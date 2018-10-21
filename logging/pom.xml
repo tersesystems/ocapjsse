@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <packaging>jar</packaging>
   <artifactId>logging</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
 
   <parent>
     <groupId>com.tersesystems.ocapjsse</groupId>
     <artifactId>ocapjsse-parent</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
   </parent>
 
   <dependencies>
@@ -23,7 +23,7 @@
     <dependency>
       <groupId>com.tersesystems.ocapjsse</groupId>
       <artifactId>ocapjsse-forwarder</artifactId>
-      <version>0.0.1</version>
+      <version>0.0.2-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
 
