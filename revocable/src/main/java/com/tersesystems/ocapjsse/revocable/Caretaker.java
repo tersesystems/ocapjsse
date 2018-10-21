@@ -7,16 +7,16 @@ import java.util.function.Supplier;
 
 interface Revoker {
 
-  Revoker REVOKED = new Revoker() {
-    @Override
-    public void revoke() {
-    }
+  Revoker REVOKED =
+      new Revoker() {
+        @Override
+        public void revoke() {}
 
-    @Override
-    public boolean isRevoked() {
-      return true;
-    }
-  };
+        @Override
+        public boolean isRevoked() {
+          return true;
+        }
+      };
 
   void revoke();
 
@@ -25,32 +25,34 @@ interface Revoker {
 
 public abstract class Caretaker<C> {
 
-  public static Caretaker<Object> REVOKED = new Caretaker<Object>() {
-    @Override
-    public Revoker getRevoker() {
-      return Revoker.REVOKED;
-    }
+  public static Caretaker<Object> REVOKED =
+      new Caretaker<Object>() {
+        @Override
+        public Revoker getRevoker() {
+          return Revoker.REVOKED;
+        }
 
-    @Override
-    public Supplier<Object> getCapability() {
-      throw new NoSuchElementException("Revoked.get");
-    }
-  };
+        @Override
+        public Supplier<Object> getCapability() {
+          throw new NoSuchElementException("Revoked.get");
+        }
+      };
 
   public static <N> Caretaker<N> create(N capability, Function<Supplier<N>, N> proxyFunction) {
     return lazyCreate((Supplier<N>) () -> capability, proxyFunction);
   }
 
-  public static <N> Caretaker<N> lazyCreate(Supplier<N> capability,
-      Function<Supplier<N>, N> proxyFunction) {
+  public static <N> Caretaker<N> lazyCreate(
+      Supplier<N> capability, Function<Supplier<N>, N> proxyFunction) {
     final LatchRevoker revoker = new LatchRevoker();
-    final Supplier<N> proxy = () -> {
-      if (revoker.isRevoked()) {
-        throw new RevokedException("Capability revoked!");
-      } else {
-        return capability.get();
-      }
-    };
+    final Supplier<N> proxy =
+        () -> {
+          if (revoker.isRevoked()) {
+            throw new RevokedException("Capability revoked!");
+          } else {
+            return capability.get();
+          }
+        };
 
     return new Caretaker<N>() {
       private final Supplier<N> supplier = () -> proxyFunction.apply(proxy);

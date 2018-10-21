@@ -150,7 +150,7 @@ public class ProxyX509Certificate extends X509Certificate {
   @Override
   public void verify(final PublicKey key, final Provider sigProvider)
       throws CertificateException, NoSuchAlgorithmException, InvalidKeyException,
-      SignatureException {
+          SignatureException {
     supplier.get().verify(key, sigProvider);
   }
 
@@ -172,14 +172,14 @@ public class ProxyX509Certificate extends X509Certificate {
   @Override
   public void verify(final PublicKey key)
       throws CertificateException, NoSuchAlgorithmException, InvalidKeyException,
-      NoSuchProviderException, SignatureException {
+          NoSuchProviderException, SignatureException {
     supplier.get().verify(key);
   }
 
   @Override
   public void verify(final PublicKey key, final String sigProvider)
       throws CertificateException, NoSuchAlgorithmException, InvalidKeyException,
-      NoSuchProviderException, SignatureException {
+          NoSuchProviderException, SignatureException {
     supplier.get().verify(key, sigProvider);
   }
 

@@ -61,8 +61,8 @@ public class ProxySSLEngine extends SSLEngine {
   }
 
   @Override
-  public SSLEngineResult unwrap(final ByteBuffer src, final ByteBuffer[] dsts, final int offset,
-      final int length)
+  public SSLEngineResult unwrap(
+      final ByteBuffer src, final ByteBuffer[] dsts, final int offset, final int length)
       throws SSLException {
     return supplier.get().unwrap(src, dsts, offset, length);
   }

@@ -334,8 +334,8 @@ public class ProxySSLSocket extends SSLSocket {
   }
 
   @Override
-  public void setPerformancePreferences(final int connectionTime, final int latency,
-      final int bandwidth) {
+  public void setPerformancePreferences(
+      final int connectionTime, final int latency, final int bandwidth) {
     supplier.get().setPerformancePreferences(connectionTime, latency, bandwidth);
   }
 }

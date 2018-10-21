@@ -16,8 +16,8 @@ public class RevocableTrustManagerTest {
     X509ExtendedTrustManager trustManager = createTrustManager();
     assertThat(trustManager).isNotNull();
 
-    Caretaker<X509ExtendedTrustManager> caretaker = Caretaker
-        .create(trustManager, ProxyX509ExtendedTrustManager::new);
+    Caretaker<X509ExtendedTrustManager> caretaker =
+        Caretaker.create(trustManager, ProxyX509ExtendedTrustManager::new);
     X509ExtendedTrustManager proxyTrustManager = caretaker.getCapability();
 
     X509Certificate[] issuers = proxyTrustManager.getAcceptedIssuers();

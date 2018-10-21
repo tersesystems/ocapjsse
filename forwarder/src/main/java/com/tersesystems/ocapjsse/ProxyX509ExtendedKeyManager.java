@@ -39,8 +39,8 @@ public class ProxyX509ExtendedKeyManager extends X509ExtendedKeyManager {
   }
 
   @Override
-  public String chooseClientAlias(final String[] keyTypes, final Principal[] issuers,
-      final Socket socket) {
+  public String chooseClientAlias(
+      final String[] keyTypes, final Principal[] issuers, final Socket socket) {
     return supplier.get().chooseClientAlias(keyTypes, issuers, socket);
   }
 
@@ -50,8 +50,8 @@ public class ProxyX509ExtendedKeyManager extends X509ExtendedKeyManager {
   }
 
   @Override
-  public String chooseServerAlias(final String keyType, final Principal[] issuers,
-      final Socket socket) {
+  public String chooseServerAlias(
+      final String keyType, final Principal[] issuers, final Socket socket) {
     return supplier.get().chooseServerAlias(keyType, issuers, socket);
   }
 

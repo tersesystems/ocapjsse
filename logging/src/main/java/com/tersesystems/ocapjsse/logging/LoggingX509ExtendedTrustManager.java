@@ -27,8 +27,8 @@ public class LoggingX509ExtendedTrustManager extends ProxyX509ExtendedTrustManag
   }
 
   @Override
-  public void checkClientTrusted(final X509Certificate[] chain, final String authType,
-      final Socket socket)
+  public void checkClientTrusted(
+      final X509Certificate[] chain, final String authType, final Socket socket)
       throws CertificateException {
     final Object[] params = {chain, authType, socket};
     tracer.apply(
@@ -36,8 +36,8 @@ public class LoggingX509ExtendedTrustManager extends ProxyX509ExtendedTrustManag
   }
 
   @Override
-  public void checkServerTrusted(final X509Certificate[] chain, final String authType,
-      final Socket socket)
+  public void checkServerTrusted(
+      final X509Certificate[] chain, final String authType, final Socket socket)
       throws CertificateException {
     final Object[] params = {chain, authType, socket};
     tracer.apply(

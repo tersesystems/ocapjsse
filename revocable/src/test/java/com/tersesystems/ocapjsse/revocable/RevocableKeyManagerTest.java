@@ -22,22 +22,22 @@ public class RevocableKeyManagerTest {
     X509ExtendedKeyManager keyManager = createKeyManager();
     assertThat(keyManager).isNotNull();
 
-    Caretaker<X509ExtendedKeyManager> caretaker = Caretaker
-        .create(keyManager, ProxyX509ExtendedKeyManager::new);
+    Caretaker<X509ExtendedKeyManager> caretaker =
+        Caretaker.create(keyManager, ProxyX509ExtendedKeyManager::new);
     X509ExtendedKeyManager proxyKeyManager = caretaker.getCapability();
 
     X509Certificate[] chain = proxyKeyManager.getCertificateChain("tersesystems.com");
     assertThat(chain).isNotNull();
     caretaker.getRevoker().revoke();
 
-    Throwable throwable = catchThrowable(
-        () -> proxyKeyManager.getCertificateChain("tersesystems.com"));
+    Throwable throwable =
+        catchThrowable(() -> proxyKeyManager.getCertificateChain("tersesystems.com"));
     assertThat(throwable).isInstanceOf(RevokedException.class);
   }
 
   private X509ExtendedKeyManager createKeyManager() throws Exception {
-    KeyPairCreator.FinalStage<RSAKeyPair> keyPairCreator = KeyPairCreator.creator().withRSA()
-        .withKeySize(2048);
+    KeyPairCreator.FinalStage<RSAKeyPair> keyPairCreator =
+        KeyPairCreator.creator().withRSA().withKeySize(2048);
     RSAKeyPair rootKeyPair = keyPairCreator.create();
     RSAKeyPair intermediateKeyPair = keyPairCreator.create();
     RSAKeyPair eePair = keyPairCreator.create();
@@ -66,9 +66,9 @@ public class RevocableKeyManagerTest {
                                     .chain()))
             .create();
 
-    return KeyManagerBuilder.builder().withSunX509()
+    return KeyManagerBuilder.builder()
+        .withSunX509()
         .withPrivateKeyStore(PrivateKeyStore.create("tersesystems.com", eePair.getPrivate(), chain))
         .build();
   }
-
 }
