@@ -14,8 +14,8 @@ public class RevokedException extends RuntimeException {
     super(cause);
   }
 
-  public RevokedException(String message, Throwable cause, boolean enableSuppression,
-      boolean writableStackTrace) {
+  public RevokedException(
+      String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
     super(message, cause, enableSuppression, writableStackTrace);
   }
 }

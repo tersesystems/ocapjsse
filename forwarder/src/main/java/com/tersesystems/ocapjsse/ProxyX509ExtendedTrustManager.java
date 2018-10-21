@@ -23,15 +23,15 @@ public class ProxyX509ExtendedTrustManager extends X509ExtendedTrustManager {
   }
 
   @Override
-  public void checkClientTrusted(final X509Certificate[] chain, final String authType,
-      final Socket socket)
+  public void checkClientTrusted(
+      final X509Certificate[] chain, final String authType, final Socket socket)
       throws CertificateException {
     supplier.get().checkClientTrusted(chain, authType, socket);
   }
 
   @Override
-  public void checkServerTrusted(final X509Certificate[] chain, final String authType,
-      final Socket socket)
+  public void checkServerTrusted(
+      final X509Certificate[] chain, final String authType, final Socket socket)
       throws CertificateException {
     supplier.get().checkServerTrusted(chain, authType, socket);
   }

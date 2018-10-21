@@ -24,8 +24,8 @@ public class LoggingX509ExtendedTrustManagerTest {
           }
 
           @Override
-          protected <R> R exit(final R result, final String methodName,
-              final Object... parameters) {
+          protected <R> R exit(
+              final R result, final String methodName, final Object... parameters) {
             System.out.println("exit: " + methodName);
             return result;
           }
@@ -36,8 +36,8 @@ public class LoggingX509ExtendedTrustManagerTest {
           }
 
           @Override
-          protected void exception(final Throwable e, final String methodName,
-              final Object... parameters) {
+          protected void exception(
+              final Throwable e, final String methodName, final Object... parameters) {
             System.out.println("exception: " + methodName);
           }
         };
